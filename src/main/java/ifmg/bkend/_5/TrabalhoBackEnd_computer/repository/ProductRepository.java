@@ -29,6 +29,13 @@ public interface ProductRepository extends MongoRepository<Product, String> {
     public List<Product> getAllProductOfTypeWithMaxCost(ProductType productType, BigDecimal maxCost);
 
 
+    @Query("""
+        {
+            'productType': ?0,
+        }
+    """)
+    public List<Product> getAllProductOfType(ProductType productType);
+
     // Usando Query Derivation ("nome do met0do")
     public List<Product> findByPriceLessThan(BigDecimal maxCost);
 
