@@ -17,7 +17,7 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    // --- Métodos de Busca (Read Operations) ---
+    // Métodos de Busca
 
     public List<UserDTO> findAll() {
         return userRepository.findAll().stream()
@@ -55,12 +55,11 @@ public class UserService {
         return new UserDTO(user);
     }
 
-    // --- Métodos de Criação e Atualização (Create & Update Operations) ---
+    // Métodos de Criação e Atualização
 
     public UserDTO create(UserDTO userDTO) {
         User user = new User(userDTO);
 
-        // Validações de unicidade antes de salvar
         if (userRepository.findByUserName(user.getUserName()) != null) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Nome de usuário '" + user.getUserName() + "' já existe.");
         }
@@ -79,7 +78,6 @@ public class UserService {
         User existingUser = userRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado para atualização com o ID: " + id));
 
-        // Atualiza os campos do usuário existente com os dados do DTO
         existingUser.setUserName(userDTO.getUserName());
         existingUser.setNomeReal(userDTO.getNomeReal());
         existingUser.setCpf(userDTO.getCpf());
@@ -94,29 +92,16 @@ public class UserService {
         User existingUser = userRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado para atualização parcial com o ID: " + id));
 
-        // Verifica cada campo do DTO. Se não for nulo, atualiza o campo correspondente no usuário existente.
         if (userDTO.getUserName() != null) {
-            // Opcional: Adicionar validação de unicidade aqui se o userName for atualizado
-            // if (userRepository.findByUserName(userDTO.getUserName()) != null && !userDTO.getUserName().equals(existingUser.getUserName())) {
-            //    throw new ResponseStatusException(HttpStatus.CONFLICT, "Nome de usuário '" + userDTO.getUserName() + "' já existe.");
-            // }
             existingUser.setUserName(userDTO.getUserName());
         }
         if (userDTO.getNomeReal() != null) {
             existingUser.setNomeReal(userDTO.getNomeReal());
         }
         if (userDTO.getCpf() != null) {
-            // Opcional: Adicionar validação de unicidade aqui se o CPF for atualizado
-            // if (userRepository.findByCpf(userDTO.getCpf()) != null && !userDTO.getCpf().equals(existingUser.getCpf())) {
-            //     throw new ResponseStatusException(HttpStatus.CONFLICT, "CPF '" + userDTO.getCpf() + "' já existe.");
-            // }
             existingUser.setCpf(userDTO.getCpf());
         }
         if (userDTO.getEmail() != null) {
-            // Opcional: Adicionar validação de unicidade aqui se o email for atualizado
-            // if (userRepository.findByEmail(userDTO.getEmail()) != null && !userDTO.getEmail().equals(existingUser.getEmail())) {
-            //    throw new ResponseStatusException(HttpStatus.CONFLICT, "Email '" + userDTO.getEmail() + "' já existe.");
-            // }
             existingUser.setEmail(userDTO.getEmail());
         }
         if (userDTO.getAge() != null) { // Para Integer, 'null' é a verificação correta.
@@ -127,7 +112,7 @@ public class UserService {
         return new UserDTO(updatedUser);
     }
 
-    // --- Métodos de Exclusão (Delete Operations) ---
+    // Métodos de Exclusão
 
     public void delete(String id) {
         if (!userRepository.existsById(id)) {

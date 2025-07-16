@@ -19,7 +19,7 @@ public class UserResource {
     @Autowired
     private UserService userService;
 
-    // --- Endpoints de Busca (Read Operations) ---
+    // Endpoints de Busca
 
     @GetMapping
     public ResponseEntity<List<UserDTO>> findAll() {
@@ -51,12 +51,11 @@ public class UserResource {
         return ResponseEntity.ok().body(dto);
     }
 
-    // --- Endpoints de Criação e Atualização (Create & Update Operations) ---
+    // Endpoints de Criação e Atualização
 
     @PostMapping
     public ResponseEntity<UserDTO> createUser(@Valid @RequestBody UserDTO userDTO) {
         UserDTO newDto = userService.create(userDTO);
-        // Retorna 201 Created com a URI do novo recurso
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(newDto.getId()).toUri();
         return ResponseEntity.created(uri).body(newDto);
@@ -70,13 +69,11 @@ public class UserResource {
 
     @PatchMapping("/{id}")
     public ResponseEntity<UserDTO> updatePartialUser(@PathVariable String id, @RequestBody UserDTO userDTO) {
-        // Para PATCH, não usamos @Valid diretamente no @RequestBody,
-        // pois os campos podem ser nulos. A validação é feita na lógica do Service.
         UserDTO dto = userService.updatePartial(id, userDTO);
         return ResponseEntity.ok().body(dto);
     }
 
-    // --- Endpoints de Exclusão (Delete Operations) ---
+    // Endpoints de Exclusão
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUserById(@PathVariable String id) {
