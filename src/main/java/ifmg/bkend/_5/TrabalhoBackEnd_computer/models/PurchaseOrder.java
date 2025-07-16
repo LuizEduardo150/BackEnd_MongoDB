@@ -42,7 +42,7 @@ public class PurchaseOrder {
         this.clientUserName = clientUserName;
         this.clientEmail = clientEmail;
     }
-
+    
 
     public String getId() {
         return id;
