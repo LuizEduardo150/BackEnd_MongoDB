@@ -4,10 +4,12 @@ import ifmg.bkend._5.TrabalhoBackEnd_computer.models.Product;
 import ifmg.bkend._5.TrabalhoBackEnd_computer.models.ProductType;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.util.List;
 
+@Repository
 public interface ProductRepository extends MongoRepository<Product, String> {
 
 

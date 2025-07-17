@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -22,7 +23,7 @@ public class PurchaseOrder {
     private BigDecimal totalCost;
 
     @NotBlank(message = "Campo obrigatório")
-    private Date date;
+    private LocalDate date;
 
     @NotBlank(message = "Campo obrigatório")
     private String clientName;
@@ -33,8 +34,11 @@ public class PurchaseOrder {
     @NotBlank(message = "Campo obrigatório")
     private String clientEmail;
 
-    public PurchaseOrder(String id, List<BasicProductDescription> idItems, BigDecimal totalCost, Date date, String clientName, String clientUserName, String clientEmail) {
-        this.id = id;
+
+    public PurchaseOrder(){}
+
+
+    public PurchaseOrder(List<BasicProductDescription> idItems, BigDecimal totalCost, LocalDate date, String clientName, String clientUserName, String clientEmail) {
         this.idItems = idItems;
         this.totalCost = totalCost;
         this.date = date;
@@ -68,11 +72,11 @@ public class PurchaseOrder {
         this.totalCost = totalCost;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
