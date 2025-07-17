@@ -3,6 +3,7 @@ package ifmg.bkend._5.TrabalhoBackEnd_computer.dtos;
 import ifmg.bkend._5.TrabalhoBackEnd_computer.models.PerformanceLevel;
 import ifmg.bkend._5.TrabalhoBackEnd_computer.models.Product;
 import ifmg.bkend._5.TrabalhoBackEnd_computer.models.ProductType;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.data.annotation.Id;
@@ -12,32 +13,52 @@ import java.math.BigDecimal;
 
 public class ProductDTO {
 
+    @Schema(description = "ID único do produto",
+            example = "60c72b2f9b1d8c001a8c4c82", accessMode = Schema.AccessMode.READ_ONLY)
     private String id;
 
     @NotBlank(message = "Campo obrigatório")
+    @Schema(description = "Nome do produto",
+            example = "Processador Core i7", requiredMode = Schema.RequiredMode.REQUIRED)
     private String name;
 
     @NotBlank(message = "Campo obrigatório")
+    @Schema(description = "Marca do produto",
+            example = "Intel", requiredMode = Schema.RequiredMode.REQUIRED)
     private String brand;
 
     @NotBlank(message = "Campo obrigatório")
+    @Schema(description = "Modelo específico do produto",
+            example = "11700K", requiredMode = Schema.RequiredMode.REQUIRED)
     private String model;
 
     @NotNull(message = "Campo obrigatório")
+    @Schema(description = "Preço do produto",
+            example = "1899.99", requiredMode = Schema.RequiredMode.REQUIRED)
     private BigDecimal price;
 
     @NotBlank(message = "Campo obrigatório")
+    @Schema(description = "Tipo do produto (ex: CPU, GPU, RAM, STORAGE)",
+            example = "CPU", requiredMode = Schema.RequiredMode.REQUIRED)
     private String productType;
 
     @NotNull(message = "Campo obrigatório")
+    @Schema(description = "TDP (Thermal Design Power) em Watts",
+            example = "125", requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer tdp;
 
     @NotNull(message = "Campo obrigatório")
+    @Schema(description = "Quantidade de unidades em estoque",
+            example = "50", requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer quantityInStock;
 
     @NotNull(message = "Campo obrigatório")
+    @Schema(description = "Nível de performance do produto (1 a 5, onde 5 é o mais alto)",
+            example = "INTERMEDIAR", requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer performanceLevel;
 
+    @Schema(description = "Descrição detalhada do produto",
+            example = "Processador de alta performance para jogos e tarefas exigentes.")
     private String description;
 
 
